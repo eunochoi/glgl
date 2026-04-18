@@ -30,7 +30,6 @@ const FindPasswordPage = lazy(() => import("./pages/FindPasswordPage"));
 import Loading from "./pages/Loading";
 import Kakao from "./pages/auth/Kakao";
 import Google from "./pages/auth/Google";
-import Naver from "./pages/auth/Naver";
 import { LegacyMainRedirect, LegacyProfileFromMain } from "./routes/LegacyRedirects";
 
 function App() {
@@ -103,7 +102,6 @@ function App() {
             <Route path="/find-password" element={<FindPasswordPage />} />
             <Route path="/auth/kakao" element={<Kakao />} />
             <Route path="/auth/google" element={<Google />} />
-            <Route path="/auth/naver" element={<Naver />} />
 
             <Route path="/main/4/cat/:cat" element={<LegacyProfileFromMain />} />
             <Route path="/main/:type/*" element={<LegacyMainRedirect />} />
