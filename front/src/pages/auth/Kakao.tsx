@@ -53,7 +53,7 @@ const Kakao = () => {
                 { email, profilePic },
                 {
                   onSuccess: () => {
-                    location.replace("/main/0");
+                    location.replace("/home");
                     // navigate("/main/0");
                   }
                 }

@@ -12,9 +12,9 @@ import moment from "moment";
 import "moment/locale/ko";
 
 //components
-import ProfileChangePopup from "../common/ProfileChangePopup";
-import Img from "../common/Img";
-import useAlert from "../common/Alert";
+import ProfileChangePopup from "../../components/common/ProfileChangePopup";
+import Img from "../../components/common/Img";
+import useAlert from "../../components/common/Alert";
 
 //style
 import Animation from "../../styles/Animation";
@@ -31,10 +31,11 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import CancelIcon from "@mui/icons-material/Cancel";
 import User from "../../functions/reactQuery/User";
-import UserDeleteConfirm from "../UserDeleteConfirm";
-import PasswordChangeConfirm from "../PasswordChangeConfirm";
+import UserDeleteConfirm from "../../components/UserDeleteConfirm";
+import PasswordChangeConfirm from "../../components/PasswordChangeConfirm";
 import CircularProgress from "@mui/material/CircularProgress";
 import IsMobile from "../../functions/IsMobile";
+import FloatingActionBar from "../../components/layout/FloatingActionBar";
 
 interface userProps {
   email: string;
@@ -258,6 +259,7 @@ const Profile = () => {
 
   return (
     <ProfileWrapper>
+      <FloatingActionBar />
       {createPortal(
         <>
           {imageChangeModal && <ProfileChangePopup setImageChangeModal={setImageChangeModal} />}
@@ -415,7 +417,7 @@ const Profile = () => {
               // scrollToPill();
 
               setTimeout(() => {
-                navigate(`/main/4/cat/${i}`);
+                navigate(`/profile/${i}`);
               }, 10);
             }}
           >

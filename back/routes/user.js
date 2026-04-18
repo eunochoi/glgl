@@ -559,8 +559,8 @@ router.get("/followers", tokenCheck, async (req, res) => {
   }
 });
 
-//타겟 유저 정보 불러오기
-router.get("/info", tokenCheck, async (req, res) => {
+//타겟 유저 정보 불러오기 (공개 프로필 조회)
+router.get("/info", async (req, res) => {
   try {
     const { id } = req.query;
 
