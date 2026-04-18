@@ -14,7 +14,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 //Pages
 const Start = lazy(() => import("./pages/Start"));
-const Main = lazy(() => import("./pages/Main"));
+const MainLayout = lazy(() => import("./pages/MainLayout"));
+const Home = lazy(() => import("./pages/home/Home"));
+const Tips = lazy(() => import("./pages/tip/Tips"));
+const FreeBoard = lazy(() => import("./pages/free/FreeBoard"));
+const Gallery = lazy(() => import("./pages/gallery/Gallery"));
+const ProfileRoute = lazy(() => import("./pages/ProfileRoute"));
 const UserInfo = lazy(() => import("./pages/UserInfo"));
 const PostView = lazy(() => import("./pages/PostView"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -26,12 +31,11 @@ import Loading from "./pages/Loading";
 import Kakao from "./pages/auth/Kakao";
 import Google from "./pages/auth/Google";
 import Naver from "./pages/auth/Naver";
+import { LegacyMainRedirect, LegacyProfileFromMain } from "./routes/LegacyRedirects";
 
 function App() {
   const { modalStack } = useModalStack();
   const { setBrowser } = useBrowserCheck();
-
-  // console.log("===== App 리렌더 =====");
 
   const [queryClient] = useState(
     () =>
@@ -92,9 +96,6 @@ function App() {
         <Suspense fallback={<Loading></Loading>}>
           <Routes>
             <Route path="postview/:id" element={<PostView />} />
-            <Route path="main/:type" element={<Main />} />
-            <Route path="main/:type/search/*" element={<Main />} />
-            <Route path="main/:type/cat/:cat" element={<Main />} />
             <Route path="userinfo/:id/cat/:cat" element={<UserInfo />} />
             <Route path="/" element={<Start />} />
             <Route path="/login" element={<LoginPage />} />
@@ -103,6 +104,21 @@ function App() {
             <Route path="/auth/kakao" element={<Kakao />} />
             <Route path="/auth/google" element={<Google />} />
             <Route path="/auth/naver" element={<Naver />} />
+
+            <Route path="/main/4/cat/:cat" element={<LegacyProfileFromMain />} />
+            <Route path="/main/:type/*" element={<LegacyMainRedirect />} />
+
+            <Route element={<MainLayout />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/home/search/*" element={<Home />} />
+              <Route path="/tip" element={<Tips />} />
+              <Route path="/tip/search/*" element={<Tips />} />
+              <Route path="/free" element={<FreeBoard />} />
+              <Route path="/free/search/*" element={<FreeBoard />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/profile/:cat" element={<ProfileRoute />} />
+            </Route>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
