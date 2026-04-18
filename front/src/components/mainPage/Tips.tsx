@@ -123,7 +123,8 @@ const Tips = () => {
         >
           <MainPageStyle.TextWrapper_SubBold>New Upload</MainPageStyle.TextWrapper_SubBold>
           <MainPageStyle.TextWrapper_Normal>
-            Tip {monthNewInfo} • Ongoing {monthOngoing}• Feed Posts {monthFeed ?? "-"}
+            Tip {monthNewInfo} • Ongoing {monthOngoing}
+            {user ? `• Feed Posts ${monthFeed ?? "-"}` : ""}
           </MainPageStyle.TextWrapper_Normal>
         </MonthUploadCollapsible>
 

@@ -108,7 +108,8 @@ const FreeBoard = () => {
         >
           <MainPageStyle.TextWrapper_SubBold>New Upload</MainPageStyle.TextWrapper_SubBold>
           <MainPageStyle.TextWrapper_Normal>
-            Free {monthNew} • Feed Posts {monthFeed ?? "-"}
+            Free {monthNew}
+            {user ? ` • Feed Posts ${monthFeed ?? "-"}` : ""}
           </MainPageStyle.TextWrapper_Normal>
         </MonthUploadCollapsible>
 
