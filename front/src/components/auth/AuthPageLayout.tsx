@@ -14,12 +14,12 @@ const AuthPageLayout = ({ children }: Props) => {
 
   return (
     <PageRoot>
-      <TopBar>
-        <button type="button" className="back" onClick={() => navigate("/")}>
-          ← 홈
-        </button>
-      </TopBar>
       <Card>
+        <TopBar>
+          <button type="button" className="back" onClick={() => navigate("/")}>
+            ← 홈
+          </button>
+        </TopBar>
         {children}
         <LogInSignUp.Bar />
         <AuthSnsSection />
@@ -31,13 +31,12 @@ const AuthPageLayout = ({ children }: Props) => {
 export default AuthPageLayout;
 
 const PageRoot = styled.div`
-  min-height: 100vh;
-  min-height: calc(var(--vh, 1vh) * 100);
-  background-color: #c7d6ff;
+  height: 100vh;
+  width: 100dvw;
+  background-color: #dce5fc;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 20px 48px;
   box-sizing: border-box;
 `;
 
@@ -69,9 +68,15 @@ const Card = styled.div`
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.06);
   padding: 36px 28px 24px;
-  box-sizing: border-box;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   @media (max-width: 480px) {
-    padding: 28px 20px 20px;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
   }
 `;
