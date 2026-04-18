@@ -1,5 +1,5 @@
 import MainPageStyle from "../../styles/MainPage";
-import { shortTag } from "./mainPageUtils";
+import { shortTag } from "./boardUtils";
 
 export interface TagSectionConfig {
   subTitle: string;

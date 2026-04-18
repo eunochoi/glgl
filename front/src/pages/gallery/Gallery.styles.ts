@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ImageList from "@mui/material/ImageList";
-import Animation from "../../../styles/Animation";
+import Animation from "../../styles/Animation";
 
 export const ImageListSC = styled(ImageList)`
   margin-bottom: 12px;

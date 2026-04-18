@@ -2,7 +2,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import ImageListItem from "@mui/material/ImageListItem";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
-import MainPageStyle from "../../../styles/MainPage";
+import MainPageStyle from "../../styles/MainPage";
 import { ImageListSC, Images } from "./Gallery.styles";
 
 interface GalleryImage {

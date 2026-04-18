@@ -1,4 +1,4 @@
-import { useEffect, type Dispatch, type RefObject, type SetStateAction } from "react";
+import { useEffect, useRef, type Dispatch, type RefObject, type SetStateAction } from "react";
 import { useLocation } from "react-router-dom";
 
 export interface UseMainBoardUrlSearchOptions {
@@ -26,9 +26,15 @@ export function useMainBoardUrlSearch({
 }: UseMainBoardUrlSearchOptions) {
   const { search, hash } = useLocation();
 
+  // refetchSearch를 인라인으로 넘기면 매 렌더마다 참조가 바뀌어 ?search= 동기화 이펙트가 반복 실행되고 입력값이 URL로 되살아남
+  const refetchSearchRef = useRef(refetchSearch);
+  refetchSearchRef.current = refetchSearch;
+
   useEffect(() => {
     if (!search) return;
-    const query = decodeURI(search.split("?search=")[1]);
+    const raw = search.split("?search=")[1];
+    if (raw === undefined) return;
+    const query = decodeURI(raw);
     setTimeout(() => {
       setSearchQuery(query);
       window.scrollTo({
@@ -38,9 +44,9 @@ export function useMainBoardUrlSearch({
       });
     }, 100);
     setTimeout(() => {
-      refetchSearch();
+      refetchSearchRef.current();
     }, 200);
-  }, [search, scrollTarget, setSearchQuery, refetchSearch]);
+  }, [search, scrollTarget, setSearchQuery]);
 
   useEffect(() => {
     const decoded = decodeURI(hash);
@@ -55,7 +61,7 @@ export function useMainBoardUrlSearch({
       });
     }, 100);
     setTimeout(() => {
-      refetchSearch();
+      refetchSearchRef.current();
     }, 200);
     if (pillWrapperRef) {
       setTimeout(() => {
@@ -66,5 +72,5 @@ export function useMainBoardUrlSearch({
         });
       }, 500);
     }
-  }, [hash, scrollTarget, searchTabIndex, setToggle, setSearchQuery, refetchSearch, pillWrapperRef]);
+  }, [hash, scrollTarget, searchTabIndex, setToggle, setSearchQuery, pillWrapperRef]);
 }

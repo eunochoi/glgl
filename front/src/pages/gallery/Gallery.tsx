@@ -3,10 +3,10 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import Axios from "../../apis/Axios";
 import MainPageStyle from "../../styles/MainPage";
 import IsMobile from "../../functions/IsMobile";
-import FloatingActionBar from "../layout/FloatingActionBar";
-import GalleryImageFeed from "./gallery/GalleryImageFeed";
-import { scrollToTextWrapperBottom } from "./scrollMainPageText";
-import { Pill, TextWrapper, Wrapper } from "./gallery/Gallery.styles";
+import FloatingActionBar from "../../components/layout/FloatingActionBar";
+import GalleryImageFeed from "./GalleryImageFeed";
+import { scrollToTextWrapperBottom } from "../../components/shared/scrollBoardText";
+import { Pill, TextWrapper, Wrapper } from "./Gallery.styles";
 
 const Gallery = () => {
   const scrollTarget = useRef<HTMLDivElement | null>(null);

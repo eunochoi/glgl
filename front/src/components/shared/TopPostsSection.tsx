@@ -4,7 +4,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import { useNavigate } from "react-router-dom";
 import MainPageStyle from "../../styles/MainPage";
 import Img from "../common/Img";
-import { makeK } from "./mainPageUtils";
+import { makeK } from "./boardUtils";
 import type { TopPostItem } from "./types";
 
 type LikeIconVariant = "bookmark" | "favorite";

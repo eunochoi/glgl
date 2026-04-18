@@ -7,16 +7,17 @@ import MainPageStyle from "../../styles/MainPage";
 import Hashtag from "../../functions/reactQuery/Hashtag";
 import IsMobile from "../../functions/IsMobile";
 import User from "../../functions/reactQuery/User";
-import ComposePostButton from "../common/ComposePostButton";
-import FloatingActionBar from "../layout/FloatingActionBar";
+import ComposePostButton from "../../components/common/ComposePostButton";
+import FloatingActionBar from "../../components/layout/FloatingActionBar";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIntro from "./HomeIntro";
-import PopularTagsSidebar from "./PopularTagsSidebar";
-import PostInfiniteList from "./PostInfiniteList";
-import { scrollToTextWrapperBottom } from "./scrollMainPageText";
-import TopPostsSection from "./TopPostsSection";
-import { useMainBoardUrlSearch } from "./useMainBoardUrlSearch";
+import PopularTagsSidebar from "../../components/shared/PopularTagsSidebar";
+import PostInfiniteList from "../../components/shared/PostInfiniteList";
+import { scrollToTextWrapperBottom } from "../../components/shared/scrollBoardText";
+import TopPostsSection from "../../components/shared/TopPostsSection";
+import { useMainBoardUrlSearch } from "../../hooks/useMainBoardUrlSearch";
+import { PATH_HOME, PATH_TIP, PATH_FREE } from "../../routes/boardPaths";
 
 const Home = () => {
   const scrollTarget = useRef<HTMLDivElement>(null);
@@ -102,7 +103,7 @@ const Home = () => {
             onClick={() => {
               setToggle(i);
               navigate({
-                pathname: "/main/0"
+                pathname: PATH_HOME
               });
               scrollToTextWrapperBottom(scrollTarget);
             }}
@@ -122,7 +123,7 @@ const Home = () => {
               e.preventDefault();
               if (searchNotice.length !== 0) {
                 navigate({
-                  pathname: "/main/0",
+                  pathname: PATH_HOME,
                   search: `?search=${searchNotice}`
                 });
               } else toast.error(`검색어는 최소 1글자 이상 필요합니다.`);
@@ -167,13 +168,13 @@ const Home = () => {
                 subTitle: "Tip Posts",
                 tags: tipHashtag,
                 tagMaxLen: 10,
-                onTagClick: (name) => navigate(`/main/1/search/#${encodeURI(name)}`)
+                onTagClick: (name) => navigate(`${PATH_TIP}/search/#${encodeURI(name)}`)
               },
               {
                 subTitle: "Free Posts",
                 tags: freeHashtag,
                 tagMaxLen: 10,
-                onTagClick: (name) => navigate(`/main/2/search/#${encodeURI(name)}`)
+                onTagClick: (name) => navigate(`${PATH_FREE}/search/#${encodeURI(name)}`)
               }
             ]}
           />

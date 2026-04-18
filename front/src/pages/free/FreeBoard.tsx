@@ -8,16 +8,17 @@ import MainPageStyle from "../../styles/MainPage";
 import Hashtag from "../../functions/reactQuery/Hashtag";
 import IsMobile from "../../functions/IsMobile";
 import User from "../../functions/reactQuery/User";
-import ComposePostButton from "../common/ComposePostButton";
-import FloatingActionBar from "../layout/FloatingActionBar";
+import ComposePostButton from "../../components/common/ComposePostButton";
+import FloatingActionBar from "../../components/layout/FloatingActionBar";
 import SearchIcon from "@mui/icons-material/Search";
 import FreeBoardIntro from "./FreeBoardIntro";
-import MonthUploadCollapsible from "./MonthUploadCollapsible";
-import PopularTagsSidebar from "./PopularTagsSidebar";
-import PostInfiniteList from "./PostInfiniteList";
-import { scrollToTextWrapperBottom } from "./scrollMainPageText";
-import TopPostsSection from "./TopPostsSection";
-import { useMainBoardUrlSearch } from "./useMainBoardUrlSearch";
+import MonthUploadCollapsible from "../../components/shared/MonthUploadCollapsible";
+import PopularTagsSidebar from "../../components/shared/PopularTagsSidebar";
+import PostInfiniteList from "../../components/shared/PostInfiniteList";
+import { scrollToTextWrapperBottom } from "../../components/shared/scrollBoardText";
+import TopPostsSection from "../../components/shared/TopPostsSection";
+import { useMainBoardUrlSearch } from "../../hooks/useMainBoardUrlSearch";
+import { PATH_FREE } from "../../routes/boardPaths";
 
 const FreeBoard = () => {
   const navigate = useNavigate();
@@ -125,7 +126,7 @@ const FreeBoard = () => {
             onClick={() => {
               setToggle(i);
               navigate({
-                pathname: "/main/2"
+                pathname: PATH_FREE
               });
               scrollToTextWrapperBottom(scrollTarget);
             }}
@@ -145,7 +146,7 @@ const FreeBoard = () => {
               e.preventDefault();
               if (searchComm.length !== 0) {
                 navigate({
-                  pathname: "/main/2",
+                  pathname: PATH_FREE,
                   search: `?search=${searchComm}`
                 });
               } else toast.error(`검색어는 최소 1글자 이상 필요합니다.`);
@@ -196,7 +197,7 @@ const FreeBoard = () => {
                 subTitle: "Free Posts",
                 tags: freeHashtag,
                 tagMaxLen: 10,
-                onTagClick: (name) => navigate(`/main/2/search/#${encodeURI(name)}`)
+                onTagClick: (name) => navigate(`${PATH_FREE}/search/#${encodeURI(name)}`)
               }
             ]}
           />
