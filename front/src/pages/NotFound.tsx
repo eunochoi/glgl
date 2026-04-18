@@ -8,7 +8,7 @@ const NotFound = () => {
   return (
     <BG>
       <span>잘못된 경로로 접속하셨습니다. :(</span>
-      <Link to="/main/0">
+      <Link to="/home">
         <Button>
           <HomeIcon />
         </Button>

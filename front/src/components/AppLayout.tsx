@@ -1,12 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import Header from "./common/Header";
 import styled from "styled-components/macro";
+import Header from "./common/Header";
 
-import PCSide from "./PCSide";
+import { MobileSideContext } from "../context/MobileSideContext";
+import { PostInputModalContext } from "../context/PostInputModalContext";
 import IsMobile from "../functions/IsMobile";
 import MobileSide from "./MobileSide";
-import { PostInputModalContext } from "../context/PostInputModalContext";
-import { MobileSideContext } from "../context/MobileSideContext";
+import PCSide from "./PCSide";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -33,7 +33,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
       {isMobile ? (
         <MobileWrapper>
           {mobileSideOpen && <MobileSide setMobileSideOpen={setMobileSideOpen} />}
-
           <Children>{children}</Children>
           <Header />
         </MobileWrapper>

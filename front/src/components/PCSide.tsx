@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import User from "../functions/reactQuery/User";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { navBoardIndexFromPath, PATH_HOME, PATH_TIP, PATH_FREE, PATH_GALLERY, profilePath } from "../routes/boardPaths";
 import SideBar from "../styles/SidaBar";
 import useAlert from "./common/Alert";
 
@@ -22,8 +23,8 @@ const Side = () => {
   const navigate = useNavigate();
   const logout = User.logout();
 
-  const { type } = useParams();
-  const currentPage = type ? parseInt(type) : -1;
+  const location = useLocation();
+  const currentPage = navBoardIndexFromPath(location.pathname);
 
   const { Alert: LogoutConfirm, openAlert: openLogoutConfirm } = useAlert();
 
@@ -53,7 +54,7 @@ const Side = () => {
       <SideBar.HeaderWrapper>
         <button
           onClick={() => {
-            navigate("/main/0");
+            navigate(PATH_HOME);
           }}
         >
           <ExtensionIcon fontSize="inherit" />
@@ -64,7 +65,7 @@ const Side = () => {
         <SideBar.UserInfoWrapper>
           <div
             onClick={() => {
-              navigate("/main/4/cat/0");
+              navigate(profilePath(0));
             }}
           >
             {user.profilePic ? (
@@ -77,7 +78,7 @@ const Side = () => {
           <div
             id="info_text_box"
             onClick={() => {
-              navigate("/main/4/cat/0");
+              navigate(profilePath(0));
             }}
           >
             <span id="nickname">{user?.nickname?.slice(0, 8)}</span>
@@ -90,7 +91,7 @@ const Side = () => {
               <button
                 className="info_box"
                 onClick={() => {
-                  navigate("/main/4/cat/0");
+                  navigate(profilePath(0));
                 }}
               >
                 <span>{user?.Posts?.length ? makeK(user?.Posts?.length) : "-"}</span>
@@ -99,7 +100,7 @@ const Side = () => {
               <button
                 className="info_box"
                 onClick={() => {
-                  navigate("/main/4/cat/4");
+                  navigate(profilePath(4));
                 }}
               >
                 <span>{user?.Followings?.length ? makeK(user?.Followings?.length) : "-"}</span>
@@ -108,7 +109,7 @@ const Side = () => {
               <button
                 className="info_box"
                 onClick={() => {
-                  navigate("/main/4/cat/5");
+                  navigate(profilePath(5));
                 }}
               >
                 <span>{user?.Followers?.length ? makeK(user?.Followers?.length) : "-"}</span>
@@ -124,7 +125,7 @@ const Side = () => {
           <div id="buttons">
             <button
               onClick={() => {
-                navigate("/main/0");
+                navigate(PATH_HOME);
               }}
             >
               <HomeRoundedIcon />
@@ -132,7 +133,7 @@ const Side = () => {
             </button>
             <button
               onClick={() => {
-                navigate("/main/1");
+                navigate(PATH_TIP);
               }}
             >
               <LightbulbRoundedIcon />
@@ -140,7 +141,7 @@ const Side = () => {
             </button>
             <button
               onClick={() => {
-                navigate("/main/2");
+                navigate(PATH_FREE);
               }}
             >
               <ForumIcon />
@@ -148,7 +149,7 @@ const Side = () => {
             </button>
             <button
               onClick={() => {
-                navigate("/main/3");
+                navigate(PATH_GALLERY);
               }}
             >
               <PhotoRoundedIcon />
@@ -157,7 +158,7 @@ const Side = () => {
             {user && user.level !== 0 && (
               <button
                 onClick={() => {
-                  navigate("/main/4/cat/0");
+                  navigate(profilePath(0));
                 }}
               >
                 <PersonRoundedIcon />

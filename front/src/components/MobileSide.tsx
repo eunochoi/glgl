@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import User from "../functions/reactQuery/User";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { navBoardIndexFromPath, PATH_HOME, PATH_TIP, PATH_FREE, PATH_GALLERY, profilePath } from "../routes/boardPaths";
 
 import useAlert from "./common/Alert";
 import SideBar from "../styles/SidaBar";
@@ -38,8 +39,8 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
   const [sideBarAnimation, setAnimation] = useState<"open" | "close" | "">("");
   // const [timer, setTimer] = useState<NodeJS.Timeout>();
 
-  const { type } = useParams();
-  const currentPage = type ? parseInt(type) : -1;
+  const location = useLocation();
+  const currentPage = navBoardIndexFromPath(location.pathname);
 
   const { Alert: LogoutConfirm, openAlert: openLogoutConfirm } = useAlert();
 
@@ -110,7 +111,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
             <SideBar.HeaderWrapper>
               <button
                 onClick={() => {
-                  navigate("/main/0");
+                  navigate(PATH_HOME);
                   onClose();
                 }}
               >
@@ -122,7 +123,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
               <SideBar.UserInfoWrapper animation={sideBarAnimation}>
                 <div
                   onClick={() => {
-                    navigate("/main/4/cat/0");
+                    navigate(profilePath(0));
                     onClose();
                   }}
                 >
@@ -136,7 +137,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
                 <div
                   id="info_text_box"
                   onClick={() => {
-                    navigate("/main/4/cat/0");
+                    navigate(profilePath(0));
                     onClose();
                   }}
                 >
@@ -155,7 +156,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
                     <button
                       className="info_box"
                       onClick={() => {
-                        navigate("/main/4/cat/0");
+                        navigate(profilePath(0));
                         onClose();
                       }}
                     >
@@ -165,7 +166,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
                     <button
                       className="info_box"
                       onClick={() => {
-                        navigate("/main/4/cat/4");
+                        navigate(profilePath(4));
                         onClose();
                       }}
                     >
@@ -175,7 +176,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
                     <button
                       className="info_box"
                       onClick={() => {
-                        navigate("/main/4/cat/5");
+                        navigate(profilePath(5));
                         onClose();
                       }}
                     >
@@ -192,7 +193,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
                 <div id="buttons">
                   <button
                     onClick={() => {
-                      navigate("/main/0");
+                      navigate(PATH_HOME);
                       onClose();
                     }}
                   >
@@ -201,7 +202,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
                   </button>
                   <button
                     onClick={() => {
-                      navigate("/main/1");
+                      navigate(PATH_TIP);
                       onClose();
                     }}
                   >
@@ -210,7 +211,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
                   </button>
                   <button
                     onClick={() => {
-                      navigate("/main/2");
+                      navigate(PATH_FREE);
                       onClose();
                     }}
                   >
@@ -219,7 +220,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
                   </button>
                   <button
                     onClick={() => {
-                      navigate("/main/3");
+                      navigate(PATH_GALLERY);
                       onClose();
                     }}
                   >
@@ -229,7 +230,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
                   {user && user.level !== 0 && (
                     <button
                       onClick={() => {
-                        navigate("/main/4/cat/0");
+                        navigate(profilePath(0));
                         onClose();
                       }}
                     >

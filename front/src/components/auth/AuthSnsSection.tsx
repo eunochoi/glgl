@@ -50,7 +50,7 @@ const AuthSnsSection = () => {
           <span>naver</span>
         </SNSButtonWrapper>
       </SNSLoginWrapper>
-      <BrowseWithoutLoginLink type="button" onClick={() => navigate("/main/0")}>
+      <BrowseWithoutLoginLink type="button" onClick={() => navigate("/home")}>
         로그인 없이 구경하기
       </BrowseWithoutLoginLink>
     </>

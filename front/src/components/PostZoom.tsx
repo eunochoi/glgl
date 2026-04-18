@@ -21,6 +21,7 @@ import User from "../functions/reactQuery/User";
 import LinkIcon from "@mui/icons-material/Link";
 import { useModalStack } from "../store/modalStack";
 import { useBrowserCheck } from "../store/borowserCheck";
+import { postTypeToSearchBasePath } from "../routes/boardPaths";
 
 interface Image {
   src: string;
@@ -134,7 +135,7 @@ const PostZoom = ({ postProps, setZoom }: props) => {
                       <Hashtag
                         onClick={() => {
                           setAnimation("close");
-                          navigate(`/main/${postProps.type}/search/${encodeURI(v)}`);
+                          navigate(`${postTypeToSearchBasePath(postProps.type)}/${encodeURI(v)}`);
                         }}
                         key={i}
                       >
@@ -237,7 +238,7 @@ const PostZoom = ({ postProps, setZoom }: props) => {
                       <Hashtag
                         onClick={() => {
                           setAnimation("close");
-                          navigate(`/main/${postProps.type}/search/${encodeURI(v)}`);
+                          navigate(`${postTypeToSearchBasePath(postProps.type)}/${encodeURI(v)}`);
                         }}
                         key={i}
                       >
@@ -341,7 +342,7 @@ const PostZoom = ({ postProps, setZoom }: props) => {
                           <Hashtag
                             onClick={() => {
                               setAnimation("close");
-                              navigate(`/main/${postProps.type}/search/${encodeURI(v)}`);
+                              navigate(`${postTypeToSearchBasePath(postProps.type)}/${encodeURI(v)}`);
                             }}
                             key={i}
                           >

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import InputForm from "../../styles/InputForm";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { getPostInputTypeFromPath } from "../../routes/boardPaths";
 import { toast } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -26,7 +27,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 interface props {
   setPostInputOpen: (b: boolean) => void;
-  /** 라우트 params와 별도로 타입 고정할 때 (예: ComposePostButton) */
+  /** 라우트 경로와 별도로 타입 고정할 때 (예: ComposePostButton) */
   postType?: number;
 }
 
@@ -35,8 +36,8 @@ const InputPopup = ({ setPostInputOpen, postType: postTypeProp }: props) => {
 
   const [animation, setAnimation] = useState<"open" | "close" | "">("");
 
-  const params = useParams();
-  const inputType = postTypeProp !== undefined ? postTypeProp : params.type ? parseInt(params.type) : 0;
+  const { pathname } = useLocation();
+  const inputType = postTypeProp !== undefined ? postTypeProp : getPostInputTypeFromPath(pathname);
   const placeholders = ["Notice Post", "Tip Post", "Free Post"];
   const [content, setContent] = useState<string>("");
   const [images, setImages] = useState<string[]>([]);

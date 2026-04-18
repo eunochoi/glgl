@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  navBoardIndexFromPath,
+  PATH_HOME,
+  PATH_TIP,
+  PATH_FREE,
+  PATH_GALLERY,
+  profilePath
+} from "../../routes/boardPaths";
 import { createPortal } from "react-dom";
 
 import User from "../../functions/reactQuery/User";
@@ -26,13 +33,11 @@ const Header = () => {
   const user = User.get().data;
   const logout = User.logout();
 
-  const { type } = useParams();
-  let currentPage = type ? parseInt(type) : -1;
+  const location = useLocation();
+  const currentPage = navBoardIndexFromPath(location.pathname);
   const navigate = useNavigate();
 
   const { Alert: LogoutConfirm, openAlert: openLogoutConfirm } = useAlert();
-
-  if (window.location.pathname.split("/")[1] === "profile") currentPage = 4;
 
   return (
     <>
@@ -49,29 +54,29 @@ const Header = () => {
             }}
           >
             <ExtensionIcon fontSize="inherit" />
-            <span onClick={() => navigate("/main/0")}>God Lock</span>
+            <span onClick={() => navigate(PATH_HOME)}>God Lock</span>
           </HeaderLogo>
           <HeaderMenu>
             <LoginMenu currentPage={currentPage + 1}>
-              <button onClick={() => navigate("/main/0")}>
+              <button onClick={() => navigate(PATH_HOME)}>
                 <HomeRoundedIcon />
                 <span>Home</span>
               </button>
-              <button onClick={() => navigate("/main/1")}>
+              <button onClick={() => navigate(PATH_TIP)}>
                 <LightbulbRoundedIcon />
                 <span>Tip Post</span>
               </button>
-              <button onClick={() => navigate("/main/2")}>
+              <button onClick={() => navigate(PATH_FREE)}>
                 <PeopleRoundedIcon />
                 <span>Free Board</span>
               </button>
-              <button onClick={() => navigate("/main/3")}>
+              <button onClick={() => navigate(PATH_GALLERY)}>
                 <PhotoRoundedIcon />
                 <span>Gallery</span>
               </button>
 
               {user && user.level !== 0 && (
-                <button onClick={() => navigate("/main/4/cat/0")}>
+                <button onClick={() => navigate(profilePath(0))}>
                   <PersonRoundedIcon />
                   <span>Profile</span>
                 </button>
@@ -118,7 +123,7 @@ const Header = () => {
             }}
           >
             <ExtensionIcon fontSize="inherit" />
-            <span onClick={() => navigate("/main/0")}>God Lock</span>
+            <span onClick={() => navigate(PATH_HOME)}>God Lock</span>
           </HeaderLogo>
 
           <HeaderLocation>

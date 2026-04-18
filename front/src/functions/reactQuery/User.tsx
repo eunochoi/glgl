@@ -90,7 +90,7 @@ const User = {
       {
         onSuccess: () => {
           queryClient.invalidateQueries(["user"]);
-          navigate("/main/0");
+          navigate("/home");
           window.location.reload();
         },
         onError: (err: CustomError) => {
@@ -114,7 +114,7 @@ const User = {
         onSuccess: () => {
           queryClient.invalidateQueries(["user"]);
           // setTimeout(() => {
-          // navigate("/main/0");
+          // navigate("/home");
           // window.location.reload();
           // }, 500);
         },

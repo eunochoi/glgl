@@ -74,7 +74,7 @@ const UserInfo = () => {
         }
         if (user && res.id === user.id) {
           console.log("내 페이지");
-          navigate("/main/4/cat/0");
+          navigate("/profile/0");
         }
       },
       onError: () => {
