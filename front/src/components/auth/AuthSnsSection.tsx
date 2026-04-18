@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -88,7 +87,7 @@ const SNSLoginWrapper = styled.div`
 
 const BrowseWithoutLoginLink = styled.button`
   display: block;
-  margin: 0 auto 12px;
+  margin: 24px auto 12px;
   padding: 0;
 
   font-size: 15px;
