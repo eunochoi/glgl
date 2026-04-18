@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-import GlobalStyle from "./styles/GlobalStyle";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useModalStack } from "./store/modalStack";
-import { useBrowserCheck } from "./store/borowserCheck";
 import { ToastContainer } from "react-toastify";
+import { useBrowserCheck } from "./store/borowserCheck";
+import { useModalStack } from "./store/modalStack";
+import GlobalStyle from "./styles/GlobalStyle";
 
 //external css
 import "react-toastify/dist/ReactToastify.css";
@@ -28,8 +27,8 @@ const SignupPage = lazy(() => import("./pages/SignupPage"));
 const FindPasswordPage = lazy(() => import("./pages/FindPasswordPage"));
 
 import Loading from "./pages/Loading";
-import Kakao from "./pages/auth/Kakao";
 import Google from "./pages/auth/Google";
+import Kakao from "./pages/auth/Kakao";
 import { LegacyMainRedirect, LegacyProfileFromMain } from "./routes/LegacyRedirects";
 
 function App() {
@@ -121,7 +120,7 @@ function App() {
           </Routes>
         </Suspense>
       </Router>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {process.env.NODE_ENV === "development" && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );
 }
