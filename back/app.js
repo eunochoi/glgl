@@ -54,7 +54,7 @@ app.get("/", (req, res) => {
     res.send("server 실행중");
 });
 
-app.listen(4000, () => {
+app.listen(4001, () => {
     console.log(
         `app is listening on 4000 port`
     );
