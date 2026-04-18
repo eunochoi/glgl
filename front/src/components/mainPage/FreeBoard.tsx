@@ -10,6 +10,8 @@ import Img from "../common/Img";
 
 //components
 import Post from "../common/Post";
+import FloatingActionBar from "../layout/FloatingActionBar";
+import ComposePostButton from "../common/ComposePostButton";
 
 //mui
 import SearchIcon from "@mui/icons-material/Search";
@@ -20,6 +22,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import MessageIcon from "@mui/icons-material/Message";
 import IsMobile from "../../functions/IsMobile";
 import Hashtag from "../../functions/reactQuery/Hashtag";
+import User from "../../functions/reactQuery/User";
 
 interface userProps {
   email: string;
@@ -45,7 +48,6 @@ const FreeBoard = () => {
   const [postCountOpen, setPostCountOpen] = useState<boolean>(false);
   const scrollTarget = useRef<HTMLDivElement>(null);
   const [toggle, setToggle] = useState<number>(0);
-  const pillSub = ["All", "Feed"];
   const [searchComm, setSearchComm] = useState<string>("");
 
   const { search } = useLocation();
@@ -99,13 +101,17 @@ const FreeBoard = () => {
   };
 
   const freeHashtag = Hashtag.get({ type: 2, limit: 10 }).data;
+  const user = User.get().data;
+  const pillSub = user ? (["All", "Feed"] as const) : (["All"] as const);
 
   //this month
   const monthNew = useQuery(["month/new/2"], () =>
     Axios.get("post/month/new", { params: { type: 2 } }).then((v) => v.data)
   ).data;
-  const monthFeed = useQuery(["month/feed"], () =>
-    Axios.get("post/month/feed", { params: { type: 2 } }).then((v) => v.data)
+  const monthFeed = useQuery(
+    ["month/feed", 2],
+    () => Axios.get("post/month/feed", { params: { type: 2 } }).then((v) => v.data),
+    { enabled: !!user }
   ).data;
   const topPosts = useQuery(["topPosts-free"], () =>
     Axios.get("post/month/top", { params: { type: 2 } }).then((v) => v.data)
@@ -129,7 +135,8 @@ const FreeBoard = () => {
     {
       getNextPageParam: (lastPage, allPages) => {
         return lastPage.length === 0 ? undefined : allPages.length + 1;
-      }
+      },
+      enabled: !!user
     }
   );
   //load search posts
@@ -150,6 +157,11 @@ const FreeBoard = () => {
       enabled: true
     }
   );
+
+  useEffect(() => {
+    if (!user && toggle === 1) setToggle(0);
+  }, [user, toggle]);
+
   const shortTag = (tag: string) => {
     if (tag?.length >= 11) return tag.slice(0, 10) + "...";
     else return tag;
@@ -166,6 +178,9 @@ const FreeBoard = () => {
 
   return (
     <MainPageStyle.MainEl>
+      <FloatingActionBar>
+        <ComposePostButton postType={2} />
+      </FloatingActionBar>
       <MainPageStyle.TextWrapper ref={scrollTarget}>
         <MainPageStyle.TextWrapper_Title>Free Board</MainPageStyle.TextWrapper_Title>
         <MainPageStyle.Space height={16}></MainPageStyle.Space>
@@ -183,7 +198,7 @@ const FreeBoard = () => {
           <>
             <MainPageStyle.TextWrapper_SubBold>New Upload</MainPageStyle.TextWrapper_SubBold>
             <MainPageStyle.TextWrapper_Normal>
-              Free {monthNew} • Feed Posts {monthFeed}
+              Free {monthNew} • Feed Posts {monthFeed ?? "-"}
             </MainPageStyle.TextWrapper_Normal>
           </>
         )}
@@ -316,7 +331,7 @@ const FreeBoard = () => {
           {toggle === 1 && (
             //피드 소통글
             <>
-              {feedPosts?.data?.pages[0].length === 0 && (
+              {(feedPosts?.data?.pages?.[0]?.length ?? 0) === 0 && (
                 <MainPageStyle.EmptyNoti>
                   <SentimentVeryDissatisfiedIcon fontSize="inherit" />
                   <span>포스트가 존재하지 않습니다.</span>

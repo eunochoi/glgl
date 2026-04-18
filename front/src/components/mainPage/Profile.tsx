@@ -35,6 +35,7 @@ import UserDeleteConfirm from "../UserDeleteConfirm";
 import PasswordChangeConfirm from "../PasswordChangeConfirm";
 import CircularProgress from "@mui/material/CircularProgress";
 import IsMobile from "../../functions/IsMobile";
+import FloatingActionBar from "../layout/FloatingActionBar";
 
 interface userProps {
   email: string;
@@ -258,6 +259,7 @@ const Profile = () => {
 
   return (
     <ProfileWrapper>
+      <FloatingActionBar />
       {createPortal(
         <>
           {imageChangeModal && <ProfileChangePopup setImageChangeModal={setImageChangeModal} />}

@@ -11,6 +11,7 @@ import Axios from "../../apis/Axios";
 
 //function
 import IsMobile from "../../functions/IsMobile";
+import FloatingActionBar from "../layout/FloatingActionBar";
 
 //mui
 import CircularProgress from "@mui/material/CircularProgress";
@@ -79,6 +80,7 @@ const Gallery = () => {
 
   return (
     <Wrapper>
+      <FloatingActionBar />
       <TextWrapper ref={scrollTarget}>
         <MainPageStyle.TextWrapper_Title>Gallery</MainPageStyle.TextWrapper_Title>
         <MainPageStyle.Space height={16}></MainPageStyle.Space>

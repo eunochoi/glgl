@@ -9,6 +9,8 @@ import MainPageStyle from "../../styles/MainPage";
 
 //components
 import Post from "../common/Post";
+import FloatingActionBar from "../layout/FloatingActionBar";
+import ComposePostButton from "../common/ComposePostButton";
 import Img from "../common/Img";
 
 //mui
@@ -20,6 +22,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import MessageIcon from "@mui/icons-material/Message";
 import IsMobile from "../../functions/IsMobile";
 import Hashtag from "../../functions/reactQuery/Hashtag";
+import User from "../../functions/reactQuery/User";
 
 interface userProps {
   email: string;
@@ -46,7 +49,6 @@ const Tips = () => {
   const [postCountOpen, setPostCountOpen] = useState<boolean>(false);
   const [toggle, setToggle] = useState<number>(0);
   const [searchInfo, setSearchInfo] = useState<string>("");
-  const pillSub = ["All", "Ongoing", "Feed"];
   const pillWrapperRef = useRef<HTMLInputElement>(null);
 
   const { search } = useLocation();
@@ -112,13 +114,17 @@ const Tips = () => {
   };
 
   const tipHashtag = Hashtag.get({ type: 1, limit: 10 }).data;
+  const user = User.get().data;
+  const pillSub = user ? (["All", "Ongoing", "Feed"] as const) : (["All", "Ongoing"] as const);
 
   //this month
   const monthNewInfo = useQuery(["month/new/1"], () =>
     Axios.get("post/month/new", { params: { type: 1 } }).then((v) => v.data)
   ).data;
-  const monthFeed = useQuery(["month/feed"], () =>
-    Axios.get("post/month/feed", { params: { type: 1 } }).then((v) => v.data)
+  const monthFeed = useQuery(
+    ["month/feed", 1],
+    () => Axios.get("post/month/feed", { params: { type: 1 } }).then((v) => v.data),
+    { enabled: !!user }
   ).data;
   const monthOngoing = useQuery(["month/activeinfo"], () =>
     Axios.get("post/month/activeinfo", { params: { type: 1 } }).then((v) => v.data)
@@ -156,7 +162,8 @@ const Tips = () => {
     {
       getNextPageParam: (lastPage, allPages) => {
         return lastPage.length === 0 ? undefined : allPages.length + 1;
-      }
+      },
+      enabled: !!user
     }
   );
   //load search posts
@@ -178,6 +185,10 @@ const Tips = () => {
     }
   );
 
+  useEffect(() => {
+    if (!user && toggle === 2) setToggle(0);
+  }, [user, toggle]);
+
   const shortTag = (tag: string) => {
     if (tag?.length >= 10) return tag.slice(0, 9) + "...";
     else return tag;
@@ -194,6 +205,9 @@ const Tips = () => {
 
   return (
     <MainPageStyle.MainEl>
+      <FloatingActionBar>
+        <ComposePostButton postType={1} />
+      </FloatingActionBar>
       <MainPageStyle.TextWrapper ref={scrollTarget}>
         <MainPageStyle.TextWrapper_Title>Tip Board</MainPageStyle.TextWrapper_Title>
 
@@ -214,7 +228,7 @@ const Tips = () => {
           <>
             <MainPageStyle.TextWrapper_SubBold>New Upload</MainPageStyle.TextWrapper_SubBold>
             <MainPageStyle.TextWrapper_Normal>
-              Tip {monthNewInfo} • Ongoing {monthOngoing}• Feed Posts {monthFeed}
+              Tip {monthNewInfo} • Ongoing {monthOngoing}• Feed Posts {monthFeed ?? "-"}
             </MainPageStyle.TextWrapper_Normal>
           </>
         )}
@@ -377,7 +391,7 @@ const Tips = () => {
           )}
           {toggle === 2 && (
             <>
-              {feedPosts.data?.pages[0].length === 0 && (
+              {(feedPosts.data?.pages?.[0]?.length ?? 0) === 0 && (
                 <MainPageStyle.EmptyNoti>
                   <SentimentVeryDissatisfiedIcon fontSize="inherit" />
                   <span>포스트가 존재하지 않습니다.</span>

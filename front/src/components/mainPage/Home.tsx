@@ -11,6 +11,8 @@ import IsMobile from "../../functions/IsMobile";
 
 //components
 import Post from "../common/Post";
+import FloatingActionBar from "../layout/FloatingActionBar";
+import ComposePostButton from "../common/ComposePostButton";
 
 //mui
 import SearchIcon from "@mui/icons-material/Search";
@@ -177,6 +179,9 @@ const Home = () => {
 
   return (
     <MainPageStyle.MainEl>
+      <FloatingActionBar>
+        <ComposePostButton postType={0} />
+      </FloatingActionBar>
       <MainPageStyle.TextWrapper ref={scrollTarget}>
         <MainPageStyle.TextWrapper_Title>home</MainPageStyle.TextWrapper_Title>
         <MainPageStyle.Space height={32}></MainPageStyle.Space>

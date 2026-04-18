@@ -11,6 +11,7 @@ import useAlert from "../components/common/Alert";
 
 //components
 import AppLayout from "../components/AppLayout";
+import FloatingActionBar from "../components/layout/FloatingActionBar";
 import Post from "../components/common/Post";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Img from "../components/common/Img";
@@ -71,7 +72,7 @@ const UserInfo = () => {
         if (res.level === 0) {
           history.back();
         }
-        if (res.id === user.id) {
+        if (user && res.id === user.id) {
           console.log("내 페이지");
           navigate("/main/4/cat/0");
         }
@@ -91,7 +92,7 @@ const UserInfo = () => {
       behavior: "smooth"
     });
   };
-  const isFollowed = targetUser?.Followers?.find((v: any) => v.id === user.id);
+  const isFollowed = user ? targetUser?.Followers?.find((v: any) => v.id === user.id) : undefined;
 
   //useMutation
   const follow = User.follow();
@@ -173,6 +174,7 @@ const UserInfo = () => {
 
   return (
     <AppLayout>
+      <FloatingActionBar />
       <Wrapper>
         {createPortal(
           <>
@@ -197,7 +199,7 @@ const UserInfo = () => {
             {targetUser?.Followers?.length}
           </span>
 
-          {user.level !== 0 && (
+          {user && user.level !== 0 && (
             <>
               {isFollowed ? (
                 <FollowButton

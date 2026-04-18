@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 
 //components
 import AppLayout from "../components/AppLayout";
+import FloatingActionBar from "../components/layout/FloatingActionBar";
 import Post from "../components/common/Post";
 import Animation from "../styles/Animation";
 
@@ -45,6 +46,7 @@ const PostView = () => {
 
   return (
     <AppLayout>
+      <FloatingActionBar />
       <SinglePostWrapper>
         <SingePostText>
           {/* <ShareIcon fontSize="large" /> */}
