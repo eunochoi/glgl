@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Axios from "../../apis/Axios";
+import { useNavigate } from "react-router-dom";
 
 //styled component
 import LogInSignUp from "../../styles/LogInSignUp";
@@ -12,7 +13,6 @@ import Auth from "../../functions/reactQuery/Auth";
 
 //mui
 import CircularProgress from "@mui/material/CircularProgress";
-import { Navigate } from "react-router-dom";
 
 interface SignInForm {
   email: string;
@@ -20,11 +20,8 @@ interface SignInForm {
   password: string;
   passwordCheck: string;
 }
-interface Props {
-  setToggle: (n: number) => void;
-}
-
-const SignUp = ({ setToggle }: Props) => {
+const SignUp = () => {
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors, isDirty, isValid },
@@ -80,7 +77,7 @@ const SignUp = ({ setToggle }: Props) => {
       { email, nickname, password },
       {
         onSuccess: () => {
-          setToggle(0);
+          navigate("/login");
         }
       }
     );
@@ -265,11 +262,11 @@ const SignUp = ({ setToggle }: Props) => {
           color="#4284F3"
           pointer={true}
           onClick={() => {
-            setToggle(0);
-            setCodeRequest(false); //인증 코드 요청 state
-            setAuthCodeConfirm(false); //인증 코드 확인 state
-            setCounter(181); //인증 코드 대기 시간 초기화
+            setCodeRequest(false);
+            setAuthCodeConfirm(false);
+            setCounter(181);
             setAuthCode("");
+            navigate("/login");
           }}
         >
           로그인

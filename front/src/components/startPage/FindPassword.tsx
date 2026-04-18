@@ -2,24 +2,21 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import Axios from "../../apis/Axios";
+import { useNavigate } from "react-router-dom";
 
 //styled component
 import LogInSignUp from "../../styles/LogInSignUp";
-import User from "../../functions/reactQuery/User";
 import styled from "styled-components";
 
 //mui
 import CircularProgress from "@mui/material/CircularProgress";
 import Auth from "../../functions/reactQuery/Auth";
 
-interface Props {
-  setToggle: (n: number) => void;
-}
 interface Form {
   email: string;
 }
-const FindPassword = ({ setToggle }: Props) => {
+const FindPassword = () => {
+  const navigate = useNavigate();
   const [authCodeConfirm, setAuthCodeConfirm] = useState(false);
   const [codeRequest, setCodeRequest] = useState(false);
 
@@ -60,7 +57,7 @@ const FindPassword = ({ setToggle }: Props) => {
       {
         onSuccess: () => {
           toast.success("이메일로 임시 비밀번호가 발송되었습니다.");
-          setToggle(0);
+          navigate("/login");
         },
         onError: () => {
           toast.error("에러 발생 임시 비밀번호 발송 실패");
@@ -185,13 +182,7 @@ const FindPassword = ({ setToggle }: Props) => {
         <LogInSignUp.Text color="" pointer={false}>
           아직 회원이 아니신가요?
         </LogInSignUp.Text>
-        <LogInSignUp.Text
-          color="#4284F3"
-          pointer={true}
-          onClick={() => {
-            setToggle(1);
-          }}
-        >
+        <LogInSignUp.Text color="#4284F3" pointer={true} onClick={() => navigate("/signup")}>
           회원가입
         </LogInSignUp.Text>
       </LogInSignUp.TextWrapper>

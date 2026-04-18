@@ -52,34 +52,34 @@ const Header = () => {
             <span onClick={() => navigate("/main/0")}>God Lock</span>
           </HeaderLogo>
           <HeaderMenu>
-            {user && ( //로그인 + 게스트 로그인
-              <LoginMenu currentPage={currentPage + 1}>
-                <button onClick={() => navigate("/main/0")}>
-                  <HomeRoundedIcon />
-                  <span>Home</span>
-                </button>
-                <button onClick={() => navigate("/main/1")}>
-                  <LightbulbRoundedIcon />
-                  <span>Tip Post</span>
-                </button>
-                <button onClick={() => navigate("/main/2")}>
-                  <PeopleRoundedIcon />
-                  <span>Free Board</span>
-                </button>
-                <button onClick={() => navigate("/main/3")}>
-                  <PhotoRoundedIcon />
-                  <span>Gallery</span>
-                </button>
+            <LoginMenu currentPage={currentPage + 1}>
+              <button onClick={() => navigate("/main/0")}>
+                <HomeRoundedIcon />
+                <span>Home</span>
+              </button>
+              <button onClick={() => navigate("/main/1")}>
+                <LightbulbRoundedIcon />
+                <span>Tip Post</span>
+              </button>
+              <button onClick={() => navigate("/main/2")}>
+                <PeopleRoundedIcon />
+                <span>Free Board</span>
+              </button>
+              <button onClick={() => navigate("/main/3")}>
+                <PhotoRoundedIcon />
+                <span>Gallery</span>
+              </button>
 
-                {user.level !== 0 && (
-                  <button onClick={() => navigate("/main/4/cat/0")}>
-                    <PersonRoundedIcon />
-                    <span>Profile</span>
-                  </button>
-                )}
+              {user && user.level !== 0 && (
+                <button onClick={() => navigate("/main/4/cat/0")}>
+                  <PersonRoundedIcon />
+                  <span>Profile</span>
+                </button>
+              )}
 
-                <Bar />
+              <Bar />
 
+              {user ? (
                 <button
                   onClick={() => {
                     openLogoutConfirm({
@@ -93,20 +93,16 @@ const Header = () => {
                   <ExitToAppRoundedIcon />
                   <span>Logout</span>
                 </button>
-              </LoginMenu>
-            )}
-            {!user && ( //로그아웃 상태 접근(only postView page)
-              <LogoutMenu>
-                <span>로그인이 필요합니다.</span>
+              ) : (
                 <button
                   onClick={() => {
-                    navigate("/");
+                    navigate("/login");
                   }}
                 >
-                  로그인
+                  <span>로그인</span>
                 </button>
-              </LogoutMenu>
-            )}
+              )}
+            </LoginMenu>
           </HeaderMenu>
         </LandMobileHeaderWrapper>
       )}
@@ -195,35 +191,6 @@ const LoginMenu = styled.div<{ currentPage: number | undefined }>`
 
   button:nth-child(${(props) => props.currentPage}) {
     color: #d5a8d0;
-  }
-`;
-const LogoutMenu = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  width: auto;
-  height: 70vh;
-
-  button {
-    font-size: 16px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.7);
-
-    padding: 4px 16px;
-
-    border: 2px solid rgba(0, 0, 0, 0.05);
-    border-radius: 50px;
-    background-color: #c7d7ff;
-
-    margin-top: 24px;
-  }
-  span {
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.6);
-    margin: 8px 0;
-    font-weight: 500;
   }
 `;
 const PortMobileHeaderWrapper = styled.div`

@@ -1,51 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
-import Axios from "../apis/Axios";
 import { useNavigate } from "react-router-dom";
-import User from "../functions/reactQuery/User";
-
-//components
-import PopupBox from "../components/startPage/PopupBox";
 
 //styles
-import SignUp from "../components/startPage/SignUp";
-import LogIn from "../components/startPage/LogIn";
 import Animation from "../styles/Animation";
 import ExtensionRoundedIcon from "@mui/icons-material/ExtensionRounded";
-import FindPassword from "../components/startPage/FindPassword";
 
 const Start = () => {
-  const [popupOpen, setPopupOpen] = useState(false);
-  const [toggle, setToggle] = useState<number>(0); //login - signup toggle
-
-  const { isSuccess } = User.getForAuth();
-
   const navigate = useNavigate();
 
   const start = () => {
-    if (isSuccess) navigate("/main/0");
-    else {
-      history.pushState({ page: "modal" }, "", "");
-      setPopupOpen(true);
-    }
+    navigate("/login");
   };
-
-  useEffect(() => {
-    setToggle(0);
-  }, [popupOpen]);
 
   return (
     <>
-      {popupOpen && (
-        <>
-          <PopupBox setPopupOpen={setPopupOpen}>
-            {toggle === 0 && <LogIn setToggle={setToggle} setPopupOpen={setPopupOpen}></LogIn>}
-            {toggle === 1 && <SignUp setToggle={setToggle}></SignUp>}
-            {toggle === 2 && <FindPassword setToggle={setToggle}></FindPassword>}
-          </PopupBox>
-        </>
-      )}
       <BG />
       <BG2 />
 

@@ -33,6 +33,7 @@ const User = {
     const queryClient = useQueryClient();
     return useQuery(["user"], () => Axios.get("user/current").then((res) => res.data), {
       // staleTime: 60 * 1000,
+      retry: false,
       refetchInterval: 60 * 1000,
       refetchOnMount: true,
       refetchOnWindowFocus: true,
@@ -47,13 +48,6 @@ const User = {
       onError: () => {
         console.log("유저 정보를 불러오지 못했습니다.");
       }
-    });
-  },
-  getForAuth: () => {
-    return useQuery(["user"], () => Axios.get("user/current").then((res) => res.data), {
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      retry: 3
     });
   },
   delete: () => {
@@ -132,28 +126,6 @@ const User = {
         }
       }
     );
-  },
-  guestLogIn: () => {
-    const navigate = useNavigate();
-    const queryClient = useQueryClient();
-
-    return useMutation(() => Axios.post("user/login/guest"), {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["user"]);
-        // setTimeout(() => {
-        // navigate("/main/0");
-        // window.location.reload();
-        // }, 500);
-
-        location.replace("/main/0");
-      },
-      onError: (err: CustomError) => {
-        console.log(err);
-        toast.error(err.response?.data?.message);
-        // navigate("/");
-        console.log("로그인 중 에러 발생");
-      }
-    });
   },
   logout: () => {
     const queryClient = useQueryClient();

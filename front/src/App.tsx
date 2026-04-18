@@ -5,8 +5,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import GlobalStyle from "./styles/GlobalStyle";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import AuthRoute from "./components/AuthRoute";
-
 import { useModalStack } from "./store/modalStack";
 import { useBrowserCheck } from "./store/borowserCheck";
 import { ToastContainer } from "react-toastify";
@@ -20,6 +18,9 @@ const Main = lazy(() => import("./pages/Main"));
 const UserInfo = lazy(() => import("./pages/UserInfo"));
 const PostView = lazy(() => import("./pages/PostView"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const SignupPage = lazy(() => import("./pages/SignupPage"));
+const FindPasswordPage = lazy(() => import("./pages/FindPasswordPage"));
 
 import Loading from "./pages/Loading";
 import Kakao from "./pages/auth/Kakao";
@@ -91,11 +92,14 @@ function App() {
         <Suspense fallback={<Loading></Loading>}>
           <Routes>
             <Route path="postview/:id" element={<PostView />} />
-            <Route path="main/:type" element={<AuthRoute accessType="login" component={<Main />} />} />
-            <Route path="main/:type/search/*" element={<AuthRoute accessType="login" component={<Main />} />} />
-            <Route path="main/:type/cat/:cat" element={<AuthRoute accessType="login" component={<Main />} />} />
-            <Route path="userinfo/:id/cat/:cat" element={<AuthRoute accessType="login" component={<UserInfo />} />} />
+            <Route path="main/:type" element={<Main />} />
+            <Route path="main/:type/search/*" element={<Main />} />
+            <Route path="main/:type/cat/:cat" element={<Main />} />
+            <Route path="userinfo/:id/cat/:cat" element={<UserInfo />} />
             <Route path="/" element={<Start />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/find-password" element={<FindPasswordPage />} />
             <Route path="/auth/kakao" element={<Kakao />} />
             <Route path="/auth/google" element={<Google />} />
             <Route path="/auth/naver" element={<Naver />} />

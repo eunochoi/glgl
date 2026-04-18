@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 //styled component
 import LogInSignUp from "../../styles/LogInSignUp";
@@ -8,16 +9,13 @@ import User from "../../functions/reactQuery/User";
 //mui
 import CircularProgress from "@mui/material/CircularProgress";
 
-interface Props {
-  setToggle: (n: number) => void;
-  setPopupOpen: (b: boolean) => void;
-}
 interface LogInForm {
   email: string;
   password: string;
 }
 
-const LogIn = ({ setToggle }: Props) => {
+const LogIn = () => {
+  const navigate = useNavigate();
   const login = User.logIn();
 
   const {
@@ -68,7 +66,7 @@ const LogIn = ({ setToggle }: Props) => {
         />
         <LogInSignUp.WarningText>{errors.password?.message}</LogInSignUp.WarningText>
         <LogInSignUp.TextWrapper>
-          <LogInSignUp.Text color="#4284F3" pointer={true} onClick={() => setToggle(2)}>
+          <LogInSignUp.Text color="#4284F3" pointer={true} onClick={() => navigate("/find-password")}>
             혹시 비밀번호를 잊으셨나요?
           </LogInSignUp.Text>
         </LogInSignUp.TextWrapper>
@@ -80,13 +78,7 @@ const LogIn = ({ setToggle }: Props) => {
         <LogInSignUp.Text color="" pointer={false}>
           아직 회원이 아니신가요?
         </LogInSignUp.Text>
-        <LogInSignUp.Text
-          color="#4284F3"
-          pointer={true}
-          onClick={() => {
-            setToggle(1);
-          }}
-        >
+        <LogInSignUp.Text color="#4284F3" pointer={true} onClick={() => navigate("/signup")}>
           회원가입
         </LogInSignUp.Text>
       </LogInSignUp.TextWrapper>

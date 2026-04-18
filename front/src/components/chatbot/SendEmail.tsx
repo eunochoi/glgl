@@ -60,7 +60,7 @@ const SendEmail = () => {
           <span></span>
           <Title>1:1 문의 메일</Title>
           <span>로그인이 필요합니다 :(</span>
-          <Button onClick={() => navigate("/")}>로그인</Button>
+          <Button onClick={() => navigate("/login")}>로그인</Button>
           <span></span>
         </>
       )}
