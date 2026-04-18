@@ -195,7 +195,7 @@ router.get("/activinfo", async (req, res) => {
   }
 })
 //load - top post this month
-router.get("/month/top", tokenCheck, async (req, res) => {
+router.get("/month/top", async (req, res) => {
 
   const { type } = req.query;
 
@@ -259,7 +259,7 @@ router.get("/month/top", tokenCheck, async (req, res) => {
 
 
 //length - new post this month
-router.get("/month/new", tokenCheck, async (req, res) => {
+router.get("/month/new", async (req, res) => {
 
   const { type } = req.query;
 
@@ -335,6 +335,7 @@ router.get("/month/likeEnd", tokenCheck, async (req, res) => {
 })
 //length - feed posts in this month
 router.get("/month/feed", tokenCheck, async (req, res) => {
+
   const { type } = req.query;
   const todayfull = new Date();
   let year = todayfull.getFullYear(); // 년도
@@ -356,6 +357,10 @@ router.get("/month/feed", tokenCheck, async (req, res) => {
         }
       }]
     })
+
+    if (!followings.length) {
+      return res.status(201).json(0);
+    }
 
     const Posts = await Post.findAndCountAll({
       where: [{
@@ -421,6 +426,10 @@ router.get("/feed", tokenCheck, async (req, res) => {
         }
       }]
     })
+
+    if (!followings.length) {
+      return res.status(201).json([]);
+    }
 
     const Posts = await Post.findAll({
       where: [{
@@ -635,7 +644,7 @@ router.get("/search", async (req, res) => {
 
 
 //load posts - target user post (type)
-router.get("/user", tokenCheck, async (req, res) => {
+router.get("/user", async (req, res) => {
   const { type, id } = req.query;
   const { pageParam, tempDataNum } = req.query;
 
@@ -682,7 +691,7 @@ router.get("/user", tokenCheck, async (req, res) => {
   }
 })
 //load posts - target user bookmarked tip
-router.get("/user/liked", tokenCheck, async (req, res) => {
+router.get("/user/liked", async (req, res) => {
   const { id, type } = req.query;
   const { pageParam, tempDataNum } = req.query;
 
