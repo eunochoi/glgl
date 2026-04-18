@@ -26,15 +26,17 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 interface props {
   setPostInputOpen: (b: boolean) => void;
+  /** 라우트 params와 별도로 타입 고정할 때 (예: ComposePostButton) */
+  postType?: number;
 }
 
-const InputPopup = ({ setPostInputOpen }: props) => {
+const InputPopup = ({ setPostInputOpen, postType: postTypeProp }: props) => {
   const { push, pop, modalStack } = useModalStack();
 
   const [animation, setAnimation] = useState<"open" | "close" | "">("");
 
   const params = useParams();
-  const inputType = params.type ? parseInt(params.type) : 0;
+  const inputType = postTypeProp !== undefined ? postTypeProp : params.type ? parseInt(params.type) : 0;
   const placeholders = ["Notice Post", "Tip Post", "Free Post"];
   const [content, setContent] = useState<string>("");
   const [images, setImages] = useState<string[]>([]);
