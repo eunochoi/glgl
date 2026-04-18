@@ -220,12 +220,7 @@ const Home = () => {
                       }}
                     >
                       {v?.Images?.length >= 1 ? (
-                        <Img
-                          alt="TopImage"
-                          id="image"
-                          src={v?.Images[0].src}
-                          altImg={v?.Images[0].src.replace(/\/thumb\//, "/original/")}
-                        />
+                        <Img alt="TopImage" id="image" src={v?.Images[0].src} />
                       ) : (
                         <span id="text">{v?.content}</span>
                       )}

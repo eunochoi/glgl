@@ -281,12 +281,7 @@ const Profile = () => {
 
         <ProfilePicWrapper>
           {user?.profilePic ? (
-            <ProfilePicTitle
-              crop={true}
-              alt="userProfilePic"
-              src={`${user?.profilePic}`}
-              altImg={user?.profilePic.replace(/\/thumb\//, "/original/")}
-            />
+            <ProfilePicTitle crop={true} alt="userProfilePic" src={`${user?.profilePic}`} />
           ) : (
             <ProfilePicTitle
               crop={true}
@@ -460,7 +455,6 @@ const Profile = () => {
                             key={"post" + i}
                             crop={true}
                             src={`${v.Images[0].src}`}
-                            altImg={`${v.Images[0].src.replace(/\/thumb\//, "/original/")}`}
                             alt="img"
                           />
                         );
@@ -510,7 +504,6 @@ const Profile = () => {
                             key={"post" + i}
                             crop={true}
                             src={`${v.Images[0].src}`}
-                            altImg={`${v.Images[0].src.replace(/\/thumb\//, "/original/")}`}
                             alt="img"
                           />
                         );
@@ -560,7 +553,6 @@ const Profile = () => {
                             key={"post" + i}
                             crop={true}
                             src={`${v.Images[0].src}`}
-                            altImg={`${v.Images[0].src.replace(/\/thumb\//, "/original/")}`}
                             alt="img"
                           />
                         );
@@ -610,7 +602,6 @@ const Profile = () => {
                             key={"post" + i}
                             crop={true}
                             src={`${v.Images[0].src}`}
-                            altImg={`${v.Images[0].src.replace(/\/thumb\//, "/original/")}`}
                             alt="img"
                           />
                         );
@@ -649,12 +640,7 @@ const Profile = () => {
                   <ListItem key={v.nickname + i}>
                     <div onClick={() => navigate(`/userinfo/${v?.id}/cat/0`)}>
                       {v.profilePic ? (
-                        <ProfilePic32
-                          crop={true}
-                          alt="ProfilePic"
-                          src={v.profilePic}
-                          altImg={v.profilePic.replace(/\/thumb\//, "/original/")}
-                        />
+                        <ProfilePic32 crop={true} alt="ProfilePic" src={v.profilePic} />
                       ) : (
                         <ProfilePic32
                           crop={true}
@@ -697,12 +683,7 @@ const Profile = () => {
                   <ListItem key={v.nickname + i}>
                     <div onClick={() => navigate(`/userinfo/${v?.id}/cat/0`)}>
                       {v.profilePic ? (
-                        <ProfilePic32
-                          crop={true}
-                          alt="ProfilePic"
-                          src={v.profilePic}
-                          altImg={v.profilePic.replace(/\/thumb\//, "/original/")}
-                        />
+                        <ProfilePic32 crop={true} alt="ProfilePic" src={v.profilePic} />
                       ) : (
                         <ProfilePic32
                           crop={true}

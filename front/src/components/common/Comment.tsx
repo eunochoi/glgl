@@ -106,7 +106,6 @@ const Comment = ({ commentProps, idx, replyOpenIdx, setReplyOpenIdx }: any) => {
               crop={true}
               alt="profilePic"
               src={`${commentProps?.User?.profilePic}`}
-              altImg={`${commentProps?.User?.profilePic.replace(/\/thumb\//, "/original/")}`}
             />
           ) : (
             <ProfilePic

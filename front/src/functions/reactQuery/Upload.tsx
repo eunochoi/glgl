@@ -5,7 +5,7 @@ const Upload = {
   images: () => {
     return useMutation(
       (images: any) => {
-        return Axios.post("post/images", images);
+        return Axios.post("image/upload", images);
       },
       {
         onSuccess: (res) => {

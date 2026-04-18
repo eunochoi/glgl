@@ -101,7 +101,6 @@ const Reply = ({ replyProps }: any) => {
               crop={true}
               alt="profilePic"
               src={`${replyProps?.User?.profilePic}`}
-              altImg={`${replyProps?.User?.profilePic.replace(/\/thumb\//, "/original/")}`}
             />
           ) : (
             <ProfilePic

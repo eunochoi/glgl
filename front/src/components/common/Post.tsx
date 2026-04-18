@@ -172,12 +172,7 @@ const Post = ({ postProps }: any) => {
               }}
             >
               {postProps?.User?.profilePic ? (
-                <ProfilePic
-                  crop={true}
-                  alt="userProfilePic"
-                  src={`${postProps?.User?.profilePic}`}
-                  altImg={`${postProps?.User?.profilePic.replace(/\/thumb\//, "/original/")}`}
-                />
+                <ProfilePic crop={true} alt="userProfilePic" src={`${postProps?.User?.profilePic}`} />
               ) : (
                 <ProfilePic
                   crop={true}
@@ -199,12 +194,7 @@ const Post = ({ postProps }: any) => {
                   setZoom(true);
                 }}
               >
-                <Image
-                  crop={true}
-                  src={`${v?.src}`}
-                  alt="img"
-                  altImg={`${v?.src.replace(/\/thumb\//, "/original/")}`}
-                />
+                <Image crop={true} src={`${v?.src}`} alt="img" />
               </div>
             ))}
           </CoustomCarousel>

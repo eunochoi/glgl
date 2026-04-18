@@ -1,13 +1,5 @@
 const express = require("express");
 
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const { S3Client } = require('@aws-sdk/client-s3');
-const AWS = require('aws-sdk');
-
-const path = require('path'); //path는 노드에서 기능하는 기능
-const fs = require('fs');//파일 시스템 조작 가능한 모듈
-
 const tokenCheck = require("../middleware/tokenCheck.js");
 
 const db = require("../models/index.js");
@@ -22,79 +14,6 @@ const Post = db.Post;
 const Comment = db.Comment;
 const Image = db.Image;
 const Hashtag = db.Hashtag;
-
-//image upload
-try {
-  //upload폴더가 존재하는지 확인
-  fs.accessSync('uploads');
-} catch (err) {
-  console.log('upload folder do not exist')
-  fs.mkdirSync('uploads');
-}
-
-//AWS 권한 획득
-AWS.config.update({
-  accessKeyId: process.env.S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-  region: 'ap-northeast-2'
-})
-
-// console.log(process.env.S3_ACCESS_KEY_ID);
-
-//로컬 멀터
-/* const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, done) { 
-      done(null, 'uploads');
-    },
-    filename(req, file, done) { 
-      const ext = path.extname(file.originalname); 
-      const basename = path.basename(file.originalname.slice(0, 10), ext);
-      done(null, basename + '_' + new Date().getTime() + ext); 
-    }
-  }),
-  limits: {
-    fileSize: 20 * 1024 * 1024
-  },
-});
-*/
-
-
-//AWS S3 multer
-let s3 = new S3Client({
-  region: 'ap-northeast-2',
-  credentials: {
-    accessKeyId: process.env.S3_ACCESS_KEY_ID,
-    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-  },
-  sslEnabled: false,
-  s3ForcePathStyle: true,
-  signatureVersion: 'v4',
-});
-
-const upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: 'glgl-images',
-    key(req, file, cb) {
-      cb(null, `original/${Date.now()}_${path.basename(file.originalname).split(' ').join('')}`)
-    }
-  }),
-  limits: {
-    fileSize: 5 * 1024 * 1024
-  },
-});
-
-router.post('/images', upload.array('image'), async (req, res, next) => {
-  //router.post('/images', isLoggedIn, upload.single('image'), async (res, req, next) //한번의 파일첨부에서 1개 올릴때 array
-  //router.post('/images', isLoggedIn, upload.fields('image'), async (res, req, next) //여러번의 파일첨부에서 여러개 올릴때 array
-
-  // res.json(req.files.map((v) => v.filename));  //로컬 multer
-
-  //s3 multer
-  res.json(req.files.map((v) => decodeURIComponent(v.location).replace(/\/original\//, '/thumb/')));
-});
-
 
 //load posts - single post
 router.get("/single", async (req, res) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Img = ({
@@ -6,7 +6,6 @@ const Img = ({
   id,
   src,
   alt,
-  altImg,
   crop,
   loading,
   width,
@@ -17,7 +16,6 @@ const Img = ({
   id?: string;
   src: string;
   alt: string;
-  altImg?: string;
   crop?: boolean;
   width?: string;
   height?: string;
@@ -25,10 +23,9 @@ const Img = ({
 
   onClick?: () => void;
 }) => {
-  const [errorCount, setErrorCount] = useState<number>(0);
   const failImg = "/img/loadingFailed.png";
 
-  //에러 발생 시 altImg로 한번 시도하고 또 에러가 발생하면 기본 이미지가 나오도록한다. 무한 루프가 방지된다.
+  // 로드 실패 시 대체 이미지 한 번만 시도 (대체 이미지까지 실패하면 onerror 제거로 무한 루프 방지)
 
   return (
     <ImgSC
@@ -43,13 +40,12 @@ const Img = ({
       height={height}
       onError={(e) => {
         console.log("error occur in image loading");
-        e.currentTarget.src = altImg ? altImg : "";
-        if (errorCount < 10) {
-          setErrorCount((c) => (c += 1));
+        const el = e.currentTarget;
+        if (el.src.includes(failImg)) {
+          el.onerror = null;
+          return;
         }
-        if (errorCount >= 10) {
-          e.currentTarget.src = failImg;
-        }
+        el.src = failImg;
       }}
     />
   );

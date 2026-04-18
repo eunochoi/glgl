@@ -127,12 +127,7 @@ const MobileSide = ({ setMobileSideOpen }: Props) => {
                     }}
                   >
                     {user.profilePic ? (
-                      <SideBar.ProfilePic
-                        crop={true}
-                        src={user.profilePic}
-                        altImg={`${user.profilePic.replace(/\/thumb\//, "/original/")}`}
-                        alt="profilePic"
-                      />
+                      <SideBar.ProfilePic crop={true} src={user.profilePic} alt="profilePic" />
                     ) : (
                       <SideBar.ProfilePic crop={true} src="/img/defaultProfilePic.png" alt="profilePic" />
                     )}

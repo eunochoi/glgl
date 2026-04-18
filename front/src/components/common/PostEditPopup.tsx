@@ -329,7 +329,7 @@ const PostEditPopup = ({ setPostEdit, postProps }: props) => {
           <InputForm.InputImageWrapper>
             {images.map((v, i) => (
               <InputForm.InputImageBox key={i + v}>
-                <InputForm.InputImage crop={true} src={`${v}`} alt={v} altImg={v?.replace(/\/thumb\//, "/original/")} />
+                <InputForm.InputImage crop={true} src={`${v}`} alt={v} />
 
                 <InputForm.ImageDeleteButton
                   onClick={() => {

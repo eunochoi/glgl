@@ -112,14 +112,7 @@ const ProfileChangePopup = ({ setImageChangeModal }: setStateProps) => {
         <input ref={imageInput} type="file" accept="image/*" name="image" hidden onChange={onChangeImages} />
         <span>프로필 이미지 변경</span>
         <ProfileImageBox>
-          {image && !uploadImage.isLoading && (
-            <ProfileImage
-              crop={true}
-              src={`${image}`}
-              altImg={image.replace(/\/thumb\//, "/original/")}
-              alt="프로필 이미지"
-            />
-          )}
+          {image && !uploadImage.isLoading && <ProfileImage crop={true} src={`${image}`} alt="프로필 이미지" />}
           {uploadImage.isLoading && (
             <ProfileImage crop={true} src={`${process.env.PUBLIC_URL}/img/loading.gif`} alt="로딩" />
           )}

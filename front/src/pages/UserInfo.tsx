@@ -184,12 +184,7 @@ const UserInfo = () => {
 
         <UserInfoWrapper ref={scrollTarget}>
           {targetUser?.profilePic ? (
-            <Pic
-              crop={true}
-              alt="userProfilePic"
-              src={`${targetUser?.profilePic}`}
-              altImg={targetUser?.profilePic.replace(/\/thumb\//, "/original/")}
-            />
+            <Pic crop={true} alt="userProfilePic" src={`${targetUser?.profilePic}`} />
           ) : (
             <Pic crop={true} alt="userProfilePic" src={`${process.env.PUBLIC_URL}/img/defaultProfilePic.png`} />
           )}
@@ -283,7 +278,6 @@ const UserInfo = () => {
                               key={"post" + i}
                               crop={true}
                               src={`${v.Images[0].src}`}
-                              altImg={`${v.Images[0].src.replace(/\/thumb\//, "/original/")}`}
                               alt="img"
                             />
                           );
@@ -333,7 +327,6 @@ const UserInfo = () => {
                               key={"post" + i}
                               crop={true}
                               src={`${v.Images[0].src}`}
-                              altImg={`${v.Images[0].src.replace(/\/thumb\//, "/original/")}`}
                               alt="img"
                             />
                           );
@@ -383,7 +376,6 @@ const UserInfo = () => {
                               key={"post" + i}
                               crop={true}
                               src={`${v.Images[0].src}`}
-                              altImg={`${v.Images[0].src.replace(/\/thumb\//, "/original/")}`}
                               alt="img"
                             />
                           );
@@ -433,7 +425,6 @@ const UserInfo = () => {
                               key={"post" + i}
                               crop={true}
                               src={`${v.Images[0].src}`}
-                              altImg={`${v.Images[0].src.replace(/\/thumb\//, "/original/")}`}
                               alt="img"
                             />
                           );
@@ -471,12 +462,7 @@ const UserInfo = () => {
                     <ListItem key={v.nickname + i}>
                       <div onClick={() => navigate(`/userinfo/${v?.id}/cat/0`)}>
                         {v.profilePic ? (
-                          <ProfilePic32
-                            crop={true}
-                            alt="ProfilePic"
-                            src={v.profilePic}
-                            altImg={v.profilePic.replace(/\/thumb\//, "/original/")}
-                          />
+                          <ProfilePic32 crop={true} alt="ProfilePic" src={v.profilePic} />
                         ) : (
                           <ProfilePic32
                             crop={true}
@@ -513,12 +499,7 @@ const UserInfo = () => {
                     <ListItem key={v.nickname + i}>
                       <div onClick={() => navigate(`/userinfo/${v?.id}/cat/0`)}>
                         {v.profilePic ? (
-                          <ProfilePic32
-                            crop={true}
-                            alt="ProfilePic"
-                            src={`${v.profilePic}`}
-                            altImg={v.profilePic.replace(/\/thumb\//, "/original/")}
-                          />
+                          <ProfilePic32 crop={true} alt="ProfilePic" src={`${v.profilePic}`} />
                         ) : (
                           <ProfilePic32
                             crop={true}
